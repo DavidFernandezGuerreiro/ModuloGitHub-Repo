@@ -33,13 +33,17 @@ public final class IconGitActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         /**
          * @param nombreRepo Pide un nombre para el repositorio, a través de un JOptionPane.
+         * @param nombreUser Pide el nombre de usuario de GitHub.
+         * @param pass Pide la contraseña del usuario.
          * 
          * A continuación se creará un repositorio en GitHub.
          */
         
+        String nombreUser=JOptionPane.showInputDialog("Nombre usuario: ");
+        String pass=JOptionPane.showInputDialog("Contraseña: ");
         String nombreRepo=JOptionPane.showInputDialog("Insetar nombre del repositorio: ");
         try {
-            GitHub obxGitHub=GitHub.connect();
+            GitHub obxGitHub=GitHub.connectUsingPassword(nombreUser, pass);
             GHCreateRepositoryBuilder obxBuilder=obxGitHub.createRepository(nombreRepo);
             obxBuilder.create();
         } catch (IOException ex) {
